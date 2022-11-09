@@ -16,6 +16,7 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
     public ProductoForm() {
         initComponents();
+        listar();
     }
     void listar(){
         List<Producto> lista = dao.listar();

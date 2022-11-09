@@ -58,6 +58,7 @@ public class ClienteDAO implements CRUD {
         return lista;
     }
 
+    
     @Override
     public int add(Object[] o) {
         int r = 0;

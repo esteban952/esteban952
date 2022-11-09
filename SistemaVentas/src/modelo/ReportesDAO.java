@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
+import vistas.ReportesForm;
 
 public class ReportesDAO implements CRUD{
     Connection con; 
@@ -87,8 +89,26 @@ public class ReportesDAO implements CRUD{
     }
 
     @Override
+    //metodo de Buscar
     public int actualizar(Object[] o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int r = 0;
+        
+        String sql = "select Id=?,IdCliente=?, IdVendedor=?, Serie=?, Fecha=?, Monto=? where FechaVenta between '2022-10-05' and '2022-10-15'"; 
+                //+ desde + " and " +hasta +"";
+        try{
+            con = cn.conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, o[0]);
+            ps.setObject(2, o[1]);
+            ps.setObject(3, o[2]);
+            ps.setObject(4, o[3]);
+            ps.setObject(5, o[4]);
+            ps.setObject(6, o[6]);
+            r = ps.executeUpdate();
+        }catch(Exception e){
+            
+        }
+        return r;
     }
 
     @Override

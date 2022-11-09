@@ -16,6 +16,9 @@ public class ReportesForm extends javax.swing.JInternalFrame {
     Ventas ve = new Ventas();
     DefaultTableModel modelo = new DefaultTableModel();
     int id;
+    public String desde;
+    static String hasta;
+    
     public ReportesForm() {
         initComponents();
         listar();
@@ -41,7 +44,23 @@ public class ReportesForm extends javax.swing.JInternalFrame {
     }
     
     
-    
+     public void actualizarB(){
+        @SuppressWarnings("unchecked")
+        List<Ventas> lista = vdao.listar();
+        modelo = (DefaultTableModel) tablaReportesV.getModel();
+        Object[] ob = new Object[6];
+        for(int i = 0; i < lista.size(); i++){
+            ob[0] = lista.get(i).getId();
+            ob[1] = lista.get(i).getIdCliente();
+            ob[2] = lista.get(i).getIdVendedor();
+            ob[3] = lista.get(i).getSerie();
+            ob[4] = lista.get(i).getFecha();
+            ob[5] = lista.get(i).getMonto();
+            //ob[6] = lista.get(i).getEstado();
+            modelo.addRow(ob);
+        }
+        tablaReportesV.setModel(modelo);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -258,8 +277,9 @@ public class ReportesForm extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //boton de buscar
-        String desde = ((JTextField)jdDesde.getDateEditor().getUiComponent()).getText();
-        String hasta = ((JTextField)jdDesde.getDateEditor().getUiComponent()).getText();
+        desde = ((JTextField)jdDesde.getDateEditor().getUiComponent()).getText();
+        hasta = ((JTextField)jdDesde.getDateEditor().getUiComponent()).getText();
+        
         
         //txtres.setText(desde);
     }//GEN-LAST:event_jButton1ActionPerformed
