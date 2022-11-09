@@ -109,6 +109,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.setText("Reportes");
 
         jMenuItem7.setText("Reporte de Ventas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem7);
 
         jMenuBar1.add(jMenu4);
@@ -153,6 +158,11 @@ public class Principal extends javax.swing.JFrame {
         VendedorForm vf = new VendedorForm();
         centrarVentana(vf);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        ReportesForm rf = new ReportesForm();
+        centrarVentana(rf);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     public void centrarVentana(JInternalFrame frame){
         ventanaPrincipal.add(frame);
         Dimension dimension = ventanaPrincipal.getSize();
