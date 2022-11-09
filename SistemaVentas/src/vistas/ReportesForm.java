@@ -5,9 +5,22 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import modelo.DetalleVentas;
 import modelo.ReportesDAO;
 import modelo.Ventas;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.HeadlessException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 
 public class ReportesForm extends javax.swing.JInternalFrame {
@@ -286,6 +299,46 @@ public class ReportesForm extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // generar PDF
+        Document documento = new Document();
+        
+        try {
+            String ruta = System.getProperty("user.home");
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Reporte Ventas.pdf"));
+            documento.open();
+            
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.addCell("ID");
+            tabla.addCell("ID CLIENTE");
+            tabla.addCell("ID VENDEDOR");
+            tabla.addCell("SERIE");
+            tabla.addCell("FECHA");
+            tabla.addCell("MONTO");
+            
+            Connection con = null;
+            try{
+                con = DriverManager.getConnection ("jdbc:mysql://localhost/bd_ventas", "root", "");
+                PreparedStatement pst = con.prepareStatement("select * from ventas");
+                
+                ResultSet rs = pst.executeQuery();
+                
+                if(rs.next()){
+                    do {                        
+                        tabla.addCell(rs.getString(1));
+                        tabla.addCell(rs.getString(2));
+                        tabla.addCell(rs.getString(3));
+                        tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
+                        tabla.addCell(rs.getString(6));
+                    } while (rs.next());
+                    documento.add(tabla);
+                }
+                
+            }catch (DocumentException | SQLException e) {
+            }   
+            documento.close();
+            JOptionPane.showMessageDialog(null, "Reporte Creado");
+        } catch (DocumentException | HeadlessException | FileNotFoundException e) {
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tablaReportesVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaReportesVMouseClicked
