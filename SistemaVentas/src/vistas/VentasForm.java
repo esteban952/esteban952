@@ -98,12 +98,14 @@ public class VentasForm extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Sistema de Ventas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("PUNTO DE VENTA \"SINFLOO\"");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
